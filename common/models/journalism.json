@@ -1,0 +1,39 @@
+{
+  "name": "Journalism",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "dataType": "longtext",
+      "required":false,
+      "mysql":{
+        "columnName":"asdasda"
+      }
+
+    },
+    "createDate": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user": {
+    "type": "belongsTo",
+    "model": "Member",
+    "foreignKey": "userId"
+  }
+ },
+  "acls": [],
+  "methods": {}
+}
