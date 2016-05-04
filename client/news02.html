@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimun-scale=1,maximun-scale=1,user-scalable=no">
+	<title>新闻列表</title>
+	<link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="plugins/metisMenu/metisMenu.css">
+  <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="plugins/footable/footable.core.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+	<div class="header">
+		<span class="logo">logo</span>
+		<ul class="nav">
+			<li>安全退出</li>
+		</ul>
+	</div>
+	<div class="wrapper-page">
+    <aside class="navgation">
+      <nav class="sidebar-nav">
+        <ul class="metismenu" id="menu">
+          <li class="active">
+              <a><i class="fa fa-user"></i> <span class="nav-label">新闻管理</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li><a href="news01.html">添加新闻</a></li>
+                  <li class="active"><a href="news02.html">新闻列表</a></li>
+              </ul>
+          </li>
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">用户管理</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li><a href="user01.html">用户列表</a></li>
+              </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+		<div class="page-content">
+			<div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+          
+                    <div class="ibox-content">
+                    
+                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8" data-filter=#filter>
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>标题</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                                <th data-hide="all">内容</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="gradeX">
+                                  <td>01</td>
+                                  <td>金融中心爆炸</td>
+                                  <td class="center">2016-03-12</td>
+                                  <td>
+                                    <a href="">删除</a>
+                                    |
+                                    <a href="">编辑</a>
+                                  </td>
+                                  <td class="center">北京市中心</td>
+                              </tr>
+                              <tr class="gradeX">
+                                  <td>01</td>
+                                  <td>金融中心爆炸</td>
+                                  <td class="center">2016-03-12</td>
+                                  <td>
+                                    <a href="">删除</a>
+                                    |
+                                    <a href="">编辑</a>
+                                  </td>
+                                  <td class="center">北京市中心</td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="15">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+		</div>
+	</div>
+	<script src="js/jquery-2.1.1.js"></script>
+	<script src="plugins/bootstrap/bootstrap.min.js"></script>
+	<script src="plugins/metisMenu/metisMenu.js"></script>
+ 	<script src="plugins/footable/footable.all.min.js"></script>
+	<script>
+		$("#menu").metisMenu();
+		$('.footable').footable();
+	</script>
+</body>
+</html>
