@@ -24,5 +24,21 @@
   "Journalism": {
     "dataSource": "mysql",
     "public": true
+  },
+  "HomeBanner": {
+    "dataSource": "mysql",
+    "public": true
+  },
+  "Advantage": {
+    "dataSource": "mysql",
+    "public": true
+  },
+  "AboutBanner": {
+    "dataSource": "mysql",
+    "public": true
+  },
+  "Medium": {
+    "dataSource": "mysql",
+    "public": true
   }
 }

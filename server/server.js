@@ -1,8 +1,28 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var formidable = require("formidable");
+var fs =require('fs');
 
 var app = module.exports = loopback();
 
+app.use("/api/Journalisms/uploaderImage",function (req, res, next) {
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "client/img/";
+    form.parse(req, function(error, fields, files) {
+      var fileName = timeStamp(files.upload.name);
+        fs.renameSync(files.upload.path, form.uploadDir + fileName );
+        res.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
+        res.write("{\"url\":\"http://101.200.197.79:3001/img/"+fileName+"\"}");
+        res.end();
+  });
+});
+function timeStamp(fileName){
+  var index = fileName.lastIndexOf('.');
+  var bofre =fileName.substring(0,index);
+  var after = fileName.substring(index);
+  var timestamp=new Date().getTime();
+  return bofre + timestamp+ after;
+}
 app.start = function() {
   // start the web server
   return app.listen(function() {

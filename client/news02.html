@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="header">
-		<span class="logo">logo</span>
+		<span class="logo"><img style="width: 140px; margin-top: -10px;" src="img/logo.png" height="100%" alt=""></span>
 		<ul class="nav">
 			<li>安全退出</li>
 		</ul>
@@ -22,6 +22,12 @@
     <aside class="navgation">
       <nav class="sidebar-nav">
         <ul class="metismenu" id="menu">
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li><a href="homebanner.html">banner</a></li>
+              </ul>
+          </li>
           <li class="active">
               <a><i class="fa fa-user"></i> <span class="nav-label">新闻管理</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
@@ -30,11 +36,24 @@
               </ul>
           </li>
           <li>
-              <a><i class="fa fa-user"></i> <span class="nav-label">用户管理</span> <span class="fa arrow"></span></a>
+              <a href="user01.html"><i class="fa fa-user"></i> <span class="nav-label">修改密码</span> <span class="fa arrow"></span></a>
+          </li>
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">优势领域</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
-                  <li><a href="user01.html">用户列表</a></li>
+                  <li><a href="competitive01.html">添加</a></li>
+                  <li><a href="competitive02.html">列表</a></li>
               </ul>
           </li>
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">媒体报道</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li><a href="media01.html">添加报道</a></li>
+                  <li><a href="media02.html">报道列表</a></li>
+                  <li><a href="media03.html">报道banner</a></li>
+              </ul>
+          </li>
+          
         </ul>
       </nav>
     </aside>
@@ -50,34 +69,13 @@
                             <tr>
                                 <th>ID</th>
                                 <th>标题</th>
+                                <th>类型</th>
                                 <th>发布时间</th>
                                 <th>操作</th>
-                                <th data-hide="all">内容</th>
                             </tr>
                             </thead>
-                            <tbody>
-                              <tr class="gradeX">
-                                  <td>01</td>
-                                  <td>金融中心爆炸</td>
-                                  <td class="center">2016-03-12</td>
-                                  <td>
-                                    <a href="">删除</a>
-                                    |
-                                    <a href="">编辑</a>
-                                  </td>
-                                  <td class="center">北京市中心</td>
-                              </tr>
-                              <tr class="gradeX">
-                                  <td>01</td>
-                                  <td>金融中心爆炸</td>
-                                  <td class="center">2016-03-12</td>
-                                  <td>
-                                    <a href="">删除</a>
-                                    |
-                                    <a href="">编辑</a>
-                                  </td>
-                                  <td class="center">北京市中心</td>
-                              </tr>
+                            <tbody class="tbbox">
+                              
                             </tbody>
                             <tfoot>
                             <tr>
@@ -91,16 +89,45 @@
                     </div>
                 </div>
             </div>
-        </div>
+      </div>
 		</div>
 	</div>
 	<script src="js/jquery-2.1.1.js"></script>
 	<script src="plugins/bootstrap/bootstrap.min.js"></script>
 	<script src="plugins/metisMenu/metisMenu.js"></script>
  	<script src="plugins/footable/footable.all.min.js"></script>
+  <script src="plugins/slimscroll/jquery.slimscroll.js"></script>
+  <script src="js/common.js"></script>
 	<script>
-		$("#menu").metisMenu();
+   
 		$('.footable').footable();
+    var bj;
+    $.get( "http://101.200.197.79:3001/api/Journalisms")
+      .done(function( data,statusText,response) {
+        console.log( "Data Loaded: " , data[0].id);
+        for(var i=0;i<data.length;i++){
+          $('.tbbox').append("<tr><td>"+data[i].id+"</td><td>"+data[i].title+"</td><td>"+data[i].type+"</td><td>"+new Date(data[i].createDate).Format("yyyy-MM-dd hh:mm")+"</td><td><a onclick='deletes("+data[i].id+")'>删除</a>|<a onclick='bj("+data[i].id+")'>编辑</a></td></tr>");
+        }
+        
+        bj = function(id){
+          location.href = "news03.html?id="+id;
+        }
+      }).fail(function(err,statusText){
+        console.log( "err: " , err );
+      });
+      var deletes = function(id){
+         $.ajax({
+           url: 'http://101.200.197.79:3001/api/Journalisms/'+id,
+           type: 'DELETE',
+           success: function(response) {
+              alert("删除成功");
+             location.reload();
+           },
+           error:function(err){
+             
+           }
+        });
+      }
 	</script>
 </body>
 </html>

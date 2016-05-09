@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="header">
-		<span class="logo">logo</span>
+		<span class="logo"><img style="width: 140px; margin-top: -10px;" src="img/logo.png" height="100%" alt=""></span>
 		<ul class="nav">
 			<li><a class="logout" href="login.html">安全退出</a></li>
 		</ul>
@@ -24,6 +24,12 @@
     <aside class="navgation">
       <nav class="sidebar-nav">
         <ul class="metismenu" id="menu">
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li><a href="homebanner.html">banner</a></li>
+              </ul>
+          </li>
           <li class="active">
               <a><i class="fa fa-user"></i> <span class="nav-label">新闻管理</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
@@ -32,16 +38,45 @@
               </ul>
           </li>
           <li>
-              <a><i class="fa fa-user"></i> <span class="nav-label">用户管理</span> <span class="fa arrow"></span></a>
+              <a href="user01.html"><i class="fa fa-user"></i> <span class="nav-label">修改密码</span> <span class="fa arrow"></span></a>
+          </li>
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">优势领域</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
-                  <li><a href="user01.html">用户列表</a></li>
+                  <li><a href="competitive01.html">添加</a></li>
+                  <li><a href="competitive02.html">列表</a></li>
               </ul>
           </li>
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">媒体报道</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li><a href="media01.html">添加报道</a></li>
+                  <li><a href="media02.html">报道列表</a></li>
+                  <li><a href="media03.html">报道banner</a></li>
+              </ul>
+          </li>
+          
         </ul>
       </nav>
     </aside>
 		<div class="page-content">
       <div><label for="">标题：</label><input class="oneheader" type="text" placeholder="请输入标题"></div>
+      <div>
+        <label for="">摘要：</label>
+        <input style="width:100%;height:30px;margin-bottom:10px;" class="summary" type="text" placeholder="请输入摘要">
+      </div>
+      <div>
+        <label for="">类型:</label>
+        <select style="width:150px;height:30px;margin-bottom:10px;" onchange="change()" class="selecttype" name="" id="">
+          <option value="">请选择类型</option>
+          <option value="普通">普通</option>
+          <option value="次要">次要</option>
+          <option value="主要">主要</option>
+        </select>
+        <input style="display:inline-block;" class="file" name="upload" type="file">
+        <input type="hidden" id="path">
+      </div>
+      
 			<div class="summernote"></div>
       <button id="edit" class="btn btn-primary" onclick="edit()" type="button">编辑</button>
       <button id="save" class="btn btn-primary" onclick="save()" type="button">保存</button>
@@ -52,30 +87,82 @@
 	<script src="plugins/metisMenu/metisMenu.js"></script>
  	<script src="plugins/footable/footable.all.min.js"></script>
   <script src="plugins/summernote/summernote.min.js"></script>
+  <script src="plugins/slimscroll/jquery.slimscroll.js"></script>
   <script src="plugins/summernote/lang/summernote-zh-CN.min.js"></script>
+  <script src="js/common.js"></script>
 	<script>
-
-        $("#menu").metisMenu();
+				
 
         $('.summernote').summernote({
           height: '400',
-          lang: 'zh-CN'
+          lang: 'zh-CN',
+          callbacks: {                
+            onImageUpload: function(files) {                  
+              sendFile(files[0],this);                
+            }             
+          }    
         });
-
+        $('.file').hide();
+        var change = function(){
+          if($('.selecttype').val() == "主要"){
+            $('.file').show();
+          }else {
+            $('.file').hide();
+          }
+        }
+        //图片上传
+        $('input[name="upload"]').change(function(e){
+        var form_data = new FormData();
+        form_data.append('upload', $('input[name="upload"]').prop("files")[0]);
+          $.ajax({
+            data:  form_data,
+            type: "POST",
+            url: 'http://101.200.197.79:3001/api/Journalisms/uploaderImage',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+              $('#path').val(data.url);
+            },
+            error: function(err) {
+              console.log(err);
+            }
+          });
+        })
         var save = function(){
           var makrup = $('.summernote').summernote('code');
               $('.summernote').summernote('destroy');
-          var bb = $('.summernote').html();
-					$.get("http://localhost:3000/api/Journalisms",function(req,res){
-						console.log(req,res);
-					})
-					console.log(bb);
+          var content = $('.summernote').html();
+          var title = $('.oneheader').val();
+					var type = $('.selecttype').val();
+          var summary = $('.summary').val();
+          var path = $('#path').val();
+					//提交新闻
+					$.post( "http://101.200.197.79:3001/api/Journalisms", {
+										  "title": title,
+                      "type": type,
+                      "summary": summary,
+										  "content": content,
+                      "path": path,
+										  "createDate": new Date().Format("yyyy-MM-dd hh:mm")
+										} )
+					  .done(function( data,statusText,response) {
+					    console.log( "Data Loaded: " , data, statusText);
+					  }).fail(function(err,statusText){
+							console.log( "err: " , err, statusText );
+						});
+					
         };
         var edit = function() {
           $('.summernote').summernote({
             focus: true,
             height: '400',
-            lang: 'zh-CN'
+            lang: 'zh-CN',
+            callbacks: {                
+              onImageUpload: function(files) {                  
+                sendFile(files[0],this);                
+              }             
+            }    
           });
         };
   </script>

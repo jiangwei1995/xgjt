@@ -15,25 +15,24 @@
     },
     "content": {
       "type": "string",
-      "dataType": "longtext",
-      "required":false,
-      "mysql":{
-        "columnName":"asdasda"
-      }
-
+      "dataType": "longtext"
+    },
+    "type": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
     },
     "createDate": {
       "type": "date"
+    },
+    "path": {
+      "type": "string"
     }
   },
   "validations": [],
-  "relations": {
-    "user": {
-    "type": "belongsTo",
-    "model": "Member",
-    "foreignKey": "userId"
-  }
- },
+  "relations": {},
   "acls": [],
-  "methods": {}
+  "methods": {
+  }
 }

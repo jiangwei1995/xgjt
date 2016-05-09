@@ -21,14 +21,6 @@
       "options": {
         "disableInclude": true
       }
-    },
-    "journalism": {
-      "type": "hasMany",
-      "model": "Journalism",
-      "foreignKey": "userId",
-      "options": {
-        "disableInclude": true
-      }
     }
   },
   "acls": [],

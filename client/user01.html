@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimun-scale=1,maximun-scale=1,user-scalable=no">
-	<title>添加新闻</title>
+	<title>修改密码</title>
 	
 	<link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="plugins/metisMenu/metisMenu.css">
@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="header">
-		<span class="logo">logo</span>
+		<span class="logo"><img style="width: 140px; margin-top: -10px;" src="img/logo.png" height="100%" alt=""></span>
 		<ul class="nav">
 			<li><a class="logout" href="login.html">安全退出</a></li>
 		</ul>
@@ -25,6 +25,12 @@
       <nav class="sidebar-nav">
         <ul class="metismenu" id="menu">
           <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li><a href="homebanner.html">banner</a></li>
+              </ul>
+          </li>
+          <li>
               <a><i class="fa fa-user"></i> <span class="nav-label">新闻管理</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
                   <li><a href="news01.html">添加新闻</a></li>
@@ -32,88 +38,36 @@
               </ul>
           </li>
           <li class="active">
-              <a><i class="fa fa-user"></i> <span class="nav-label">用户管理</span> <span class="fa arrow"></span></a>
+              <a href="user01.html"><i class="fa fa-user"></i> <span class="nav-label">修改密码</span> </a>
+          </li>
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">优势领域</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
-                  <li class="active"><a href="user01.html">用户列表</a></li>
+                  <li><a href="competitive01.html">添加</a></li>
+                  <li><a href="competitive02.html">列表</a></li>
               </ul>
           </li>
+          <li>
+              <a><i class="fa fa-user"></i> <span class="nav-label">媒体报道</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                  <li><a href="media01.html">添加报道</a></li>
+                  <li><a href="media02.html">报道列表</a></li>
+                  <li><a href="media03.html">报道banner</a></li>
+              </ul>
+          </li>
+          
         </ul>
       </nav>
     </aside>
 		<div class="page-content user01">
-       <button class="btn btn-primary" onclick="adduser()">添加用户</button>
-      <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-          
-                    <div class="ibox-content">
-                    
-                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8" data-filter=#filter>
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>用户名</th>
-                                <th>手机</th>
-                                <th>姓名</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                              <tr class="gradeX">
-                                  <td>01</td>
-                                  <td>金融中心爆炸</td>
-                                  <td>13898973434</td>
-                                  <td>王某</td>
-                                  <td>
-                                    <a href="">删除</a>
-                                    |
-                                    <a href="">编辑</a>
-                                    |
-                                    <a onclick="revisePSD()">修改密码</a>
-                                  </td>
-                              </tr>
-                              <tr class="gradeX">
-                                  <td>01</td>
-                                  <td>金融中心爆炸</td>
-                                  <td>13898973434</td>
-                                  <td>王某</td>
-                                  <td>
-                                    <a href="">删除</a>
-                                    |
-                                    <a href="">编辑</a>
-                                    |
-                                    <a class="btnpsd">修改密码</a>
-                                  </td>
-                              </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="15">
-                                    <ul class="pagination pull-right"></ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
-                        
-                    </div>
-                </div>
-            </div>
-      </div>
-      <div class="addbox">
-        <input type="text" placeholder="请输入用户名">
-        <input type="password" placeholder="请输入密码">
-        <input type="text" placeholder="请输入姓名">
-        <input type="text" placeholder="请输入手机号"><br>
-        <button class="btn btn-info clear">取消</button>
-        <button class="btn btn-info">保存</button>
-
-      </div>
+      <button class="btn btn-primary" onclick="revisePSD()">修改密码</button>
+      
       <div class="revisePSD">
-        <input type="password" placeholder="请输入旧密码">
-        <input type="password" placeholder="请输入新密码">
-        <input type="password" placeholder="请再次输入新密码"><br>
+        <input id="old" type="password" placeholder="请输入旧密码">
+        <input id="new" type="password" placeholder="请输入新密码">
+        <input id="news" type="password" placeholder="请再次输入新密码"><br>
         <button class="btn btn-info clear">取消</button>
-        <button class="btn btn-info">保存</button>
+        <button class="btn btn-info" onclick="editPassword()">修改</button>
       </div>
       <div class="infobg"></div>
 		</div>
@@ -123,19 +77,17 @@
 	<script src="plugins/metisMenu/metisMenu.js"></script>
  	<script src="plugins/footable/footable.all.min.js"></script>
   <script src="plugins/summernote/summernote.min.js"></script>
+  <script src="plugins/slimscroll/jquery.slimscroll.js"></script>
   <script src="plugins/summernote/lang/summernote-zh-CN.min.js"></script>
+  <script src="js/common.js"></script>
 	<script>
-    $("#menu").metisMenu();
+    
     $('.footable').footable();
-    var adduser = function(){
-      $('.user01 .infobg').show();
-      $('.user01 .addbox').show();
-    };
-    $('.user01 .addbox .clear').click(function(){
-      $('.user01 .infobg').hide();
-      $('.user01 .addbox').hide();
-    });
+    
     var revisePSD = function(){
+      $("#old").val("");
+      $("#new").val("");
+      $("#news").val("");
       $('.user01 .infobg').show();
       $('.user01 .revisePSD').show();
     };
@@ -143,6 +95,48 @@
       $('.user01 .infobg').hide();
       $('.user01 .revisePSD').hide();
     });
+
+    var editPassword = function(){
+      if($("#old").val().length==0){
+        alert("请输入旧密码");
+        return ;
+      }
+      if($("#new").val().length==0||$("#news").val().length==0){
+        alert("请输入新密码");
+        return ;
+      }
+
+      if($("#new").val() != $("#news").val()){
+        alert("新密码两次输入不一致");
+        return ;
+      }
+
+      $.post("http://101.200.197.79:3001/api/Members/login", {
+            "username": "admin",
+            "password":$("#old").val()
+          })
+        .done(function( data,statusText,response) {
+          console.log(data);
+          $.ajax({
+            url: 'http://101.200.197.79:3001/api/Members/1',
+            type: 'PUT',
+            data: {
+                "password":$("#new").val()
+                 },
+             dataType:'json',
+            success: function(response) {
+              $('.user01 .revisePSD .clear').click();
+              alert("修改密码成功");
+            },
+            error:function(err){
+              alert("修改密码失败");
+            }
+         });
+        }).fail(function(err,statusText){
+           alert("旧密码输入错误");
+        });
+
+    }
   </script>
 </body>
 </html>
